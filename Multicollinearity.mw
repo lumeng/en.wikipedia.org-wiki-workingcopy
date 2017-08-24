@@ -1,0 +1,131 @@
+In [[statistics]], '''multicollinearity''' (also '''collinearity''') is a phenomenon in which two or more predictor [[Variable (mathematics)|variables]] in a [[multiple regression]] model are highly [[Correlation and dependence|correlated]], meaning that one can be linearly predicted from the others with a substantial degree of accuracy. In this situation the [[Regression coefficient|coefficient estimates]] of the multiple regression may change erratically in response to small changes in the model or the data. Multicollinearity does not reduce the predictive power or reliability of the model as a whole, at least within the sample data set; it only affects calculations regarding [[Dependent and independent variables#Use in statistics|individual predictors]].  That is, a multiple regression model with correlated predictors can indicate how well the entire bundle of predictors predicts the [[Dependent variable#Use in statistics|outcome variable]], but it may not give valid results about any individual predictor, or about which predictors are redundant with respect to others.
+
+In the case of ''perfect'' multicollinearity (in which one independent variable is an exact linear combination of the others) the [[design matrix]] <math>X</math> has less than full [[Rank (linear algebra)|rank]], and therefore the [[moment matrix]] <math>X^{\mathsf{T}}X</math> cannot be [[matrix inversion|inverted]]. Under these circumstances, for a general linear model <math>y = X \beta + \epsilon</math>, the [[Ordinary least squares|ordinary least-squares]] estimator <math>\hat{\beta}_{OLS} = (X^{\mathsf{T}}X)^{-1}X^{\mathsf{T}}y</math> does not exist.
+
+Note that in statements of the assumptions underlying regression analyses such as ordinary least squares, the phrase "no multicollinearity" is sometimes used to mean the absence of perfect multicollinearity, which is an exact (non-stochastic) linear relation among the [[Explanatory variable#Independent variable|regressors]].
+
+==Definition==
+
+'''Collinearity''' is a linear association between ''two'' [[explanatory variable]]s. Two variables are perfectly collinear if there is an exact linear relationship between them. For example, <math> X_{1} </math> and <math> X_{2} </math> are perfectly collinear if there exist parameters <math>\lambda_0</math> and <math>\lambda_1</math> such that, for all observations ''i'', we have
+
+: <math> X_{2i} = \lambda_0 + \lambda_1 X_{1i}. </math>
+
+'''Multicollinearity''' refers to a situation in which two or more explanatory variables in a [[multiple regression]] model are highly linearly related. We have perfect multicollinearity if, for example as in the equation above, the correlation between two independent variables is equal to 1 or −1. In practice, we rarely face perfect multicollinearity in a data set. More commonly, the issue of multicollinearity arises when there is an approximate linear relationship among two or more independent variables.
+
+Mathematically, a set of variables is perfectly multicollinear if there exist one or more exact linear relationships among some of the variables. For example, we may have
+
+: <math>
+\lambda_0 + \lambda_1 X_{1i} + \lambda_2 X_{2i} + \cdots + \lambda_k X_{ki} = 0
+</math>
+
+holding for all observations ''i'',  where <math> \lambda_j </math> are constants and <math> X_{ji} </math> is the ''i''<sup>th</sup> observation on the ''j''<sup>th</sup> explanatory variable. We can explore one issue caused by multicollinearity by examining the process of attempting to obtain estimates for the parameters of the multiple regression equation
+
+: <math> Y_{i} = \beta _0 + \beta _1 X_{1i} + \cdots + \beta _k X_{ki} + \varepsilon _{i}. </math>
+
+The [[ordinary least squares]] estimates involve inverting the matrix
+
+: <math> X^{T} X </math>
+
+where
+
+: <math> X = \begin{bmatrix}
+
+      1 & X_{11} & \cdots & X_{k1}  \\
+
+      \vdots & \vdots & & \vdots \\
+
+      1 & X_{1N} & \cdots & X_{kN}
+
+\end{bmatrix}. </math>
+
+If there is an exact linear relationship (perfect multicollinearity) among the independent variables, the [[Rank (linear algebra)|rank]] of X (and therefore of X<sup>T</sup>X) is less than k+1, and the matrix X<sup>T</sup>X will not be invertible.
+
+Perfect multicollinearity is fairly common when working with raw datasets, which frequently contain redundant information. Once redundancies are identified and removed, however, nearly multicollinear variables often remain due to correlations inherent in the system being studied. In such a case, instead of the above equation holding, we have that equation in modified form with an error term <math>v_i</math>:
+
+:<math>
+\lambda_0 + \lambda_1 X_{1i} + \lambda_2 X_{2i} + \cdots + \lambda_k X_{ki} + v_i = 0.
+</math>
+
+In this case, there is no exact linear relationship among the variables, but the <math> X_j </math> variables are nearly perfectly multicollinear if the variance of <math>v_i</math> is small for some set of values for the <math>\lambda</math>'s. In this case, the matrix X<sup>T</sup>X has an inverse, but is ill-conditioned so that a given computer algorithm may or may not be able to compute an approximate inverse, and if it does so the resulting computed inverse may be highly sensitive to slight variations in the data (due to magnified effects of rounding error) and so may be very inaccurate.
+
+==Detection of multicollinearity==
+
+Indicators that multicollinearity may be present in a model include the following:
+
+# Large changes in the estimated regression coefficients when a predictor variable is added or deleted
+# Insignificant regression coefficients for the affected variables in the multiple regression, but a rejection of the joint hypothesis that those coefficients are all zero (using an [[F-test|''F''-test]])
+# If a multivariable regression finds an insignificant coefficient of a particular explanator, yet a [[simple linear regression]] of the explained variable on this explanatory variable shows its coefficient to be significantly different from zero, this situation indicates multicollinearity in the multivariable regression.
+# Some authors have suggested a formal detection-tolerance or the [[variance inflation factor]] (VIF) for multicollinearity:<br><math>\mathrm{tolerance} = 1-R_{j}^2,\quad \mathrm{VIF} = \frac{1}{\mathrm{tolerance}},</math><br>where <math>R_{j}^2</math> is the [[coefficient of determination]] of a regression of explanator ''j'' on all the other explanators. A tolerance of less than 0.20 or 0.10 and/or a VIF of 5 or 10 and above indicates a multicollinearity problem.<ref>{{Cite journal | doi = 10.1007/s11135-006-9018-6| title = A Caution Regarding Rules of Thumb for Variance Inflation Factors| year = 2007| last1 = O’Brien | first1 = R. M.| journal = Quality & Quantity| volume = 41| issue = 5| pages = 673}}</ref>
+# '''Condition number test''': The standard measure of [[Condition number|ill-conditioning]] in a matrix is the condition index.  It will indicate that the inversion of the matrix is numerically unstable with finite-precision numbers (standard computer floats and doubles).  This indicates the potential sensitivity of the computed inverse to small changes in the original matrix. The Condition Number is computed by finding the square root of (the maximum eigenvalue divided by the minimum eigenvalue). If the Condition Number is above 30, the regression may have significant multicollinearity; multicollinearity exists if, in addition, two or more of the variables related to the high condition number have high proportions of variance explained. One advantage of this method is that it also shows which variables are causing the problem.<ref name="Belsley1991">{{cite book |last= Belsley |first= David |year= 1991 |title=Conditioning Diagnostics: Collinearity and Weak Data in Regression |location=New York |publisher=Wiley |page= |isbn=0-471-52889-7 }}</ref>
+# '''Farrar–Glauber test''':<ref>{{Cite journal | last1 = Farrar | first1 = Donald E. | last2 = Glauber | first2 = Robert R. | year = 1967 | title = Multicollinearity in Regression Analysis: The Problem Revisited | journal = [[Review of Economics and Statistics]] | volume = 49 | issue = 1 | pages = 92–107 | publisher =  | jstor = 1937887 | doix = <!-- {{subst:#titleparts:{{subst:PAGENAME}}|0|2}} --> | url =  | format =  | accessdate = }}</ref> If the variables are found to be orthogonal, there is no multicollinearity; if the variables are not orthogonal, then at least some degree of multicollinearity is present. C. Robert Wichers has argued that Farrar–Glauber partial correlation test is ineffective in that a given partial correlation may be compatible with different multicollinearity patterns.<ref>{{Cite journal | last1 = Wichers | first1 = C. Robert | last2 = | first2 =  | year = 1975 | title = The Detection of Multicollinearity: A Comment | journal = [[Review of Economics and Statistics]] | volume = 57 | issue = 3 | pages = 366–368 | publisher =  | jstor = 1923926 | doix = <!-- {{subst:#titleparts:{{subst:PAGENAME}}|0|2}} --> | url =  | format =  | accessdate = }}</ref> The Farrar–Glauber test has also been criticized by other researchers.<ref>{{Cite journal | last1 = Kumar | first1 = T. Krishna | last2 = | first2 =  | year = 1975 | title = Multicollinearity in Regression Analysis | journal = [[Review of Economics and Statistics]] | volume = 57 | issue = 3 | pages = 365–366 | publisher =  | jstor = 1923925 | doix = <!-- {{subst:#titleparts:{{subst:PAGENAME}}|0|2}} --> | url =  | format =  | accessdate = }}</ref><ref>{{Cite journal | last1 = O'Hagan | first1 = John | last2 = McCabe | first2 = Brendan | year = 1975 | title = Tests for the Severity of Multicolinearity in Regression Analysis: A Comment | journal = [[Review of Economics and Statistics]] | volume = 57 | issue = 3 | pages = 368–370 | publisher =  | jstor = 1923927 | doix = <!-- {{subst:#titleparts:{{subst:PAGENAME}}|0|2}} --> | url =  | format =  | accessdate = }}</ref>
+# '''Perturbing the data'''.<ref>A package for [[R (programming language)|R]] is available: {{cite web |title=perturb: Tools for evaluating collinearity |work=R Project |date= |url=https://cran.r-project.org/web/packages/perturb/index.html }}</ref> Multicollinearity can be detected by adding random noise to the data and re-running the regression many times and seeing how much the coefficients change.
+# Construction of a correlation matrix among the explanatory variables will yield indications as to the likelihood that any given couplet of right-hand-side variables are creating multicollinearity problems.  Correlation values (off-diagonal elements) of at least 0.4 are sometimes interpreted as indicating a multicollinearity problem. This procedure is, however, highly problematic and cannot be recommended. Intuitively, correlation describes a bivariate relationship, whereas collinearity is a multivariate phenomenon.
+
+==Consequences of multicollinearity==
+
+One consequence of a high degree of multicollinearity is that, even if the matrix <math>X^{\top}X</math> is invertible, a computer algorithm may be unsuccessful in obtaining an approximate inverse, and if it does obtain one it may be numerically inaccurate.  But even in the presence of an accurate <math>X^{\top}X</math> matrix, the following consequences arise.
+
+In the presence of multicollinearity, the estimate of one variable's impact on the dependent variable <math>Y</math> while controlling for the others tends to be less precise than if predictors were uncorrelated with one another. The usual interpretation of a regression coefficient is that it provides an estimate of the effect of a one unit change in an independent variable, <math>X_{1}</math>, holding the other variables constant. If <math>X_{1}</math> is highly correlated with another independent variable, <math>X_{2}</math>, in the given data set, then we have  a set of observations for which <math>X_{1}</math> and <math>X_{2}</math> have a particular linear stochastic relationship. We don't have a set of observations for which all changes in <math>X_{1}</math> are independent of changes in <math>X_{2}</math>, so we have an imprecise estimate of the effect of independent changes in <math>X_{1}</math>.
+
+In some sense, the collinear variables contain the same information about the dependent variable. If nominally "different" measures actually quantify the same phenomenon then they are redundant. Alternatively, if the variables are accorded different names and perhaps employ different numeric measurement scales but are highly correlated with each other, then they suffer from redundancy.
+
+One of the features of multicollinearity is that the standard errors of the affected coefficients tend to be large. In that case, the test of the hypothesis that the coefficient is equal to zero may lead to a failure to reject a false null hypothesis of no effect of the explanator, a [[type II error]].
+
+Another issue with multicollinearity is that small changes to the input data can lead to large changes in the model, even resulting in changes of sign of parameter estimates.<ref name="Belsley1991" />
+
+A principal danger of such data redundancy is that of [[overfitting]] in [[regression analysis]] models. The best regression models are those in which the predictor variables each correlate highly with the dependent (outcome) variable but correlate at most only minimally with each other. Such a model is often called "low noise" and will be statistically robust (that is, it will predict reliably across numerous samples of variable sets drawn from the same statistical population).
+
+So long as the underlying specification is correct, multicollinearity does not actually bias results; it just produces large [[Standard error (statistics)|standard errors]] in the related independent variables. More importantly, the usual use of regression is to take coefficients from the model and then apply them to other data. Since multicollinearity causes imprecise estimates of coefficient values, the resulting out-of-sample predictions will also be imprecise. And if the pattern of multicollinearity in the new data differs from that in the data that was fitted, such extrapolation may introduce large errors in the predictions.<ref>{{cite book |last=Chatterjee |first=S. |last2=Hadi |first2=A. S. |last3=Price |first3=B. |year=2000 |title=Regression Analysis by Example |edition=Third |publisher=John Wiley and Sons |isbn=0-471-31946-5 }}</ref>
+
+==Remedies for multicollinearity==
+
+# Make sure you have not fallen into the [[Dummy variable (statistics)|dummy variable]] trap; including a dummy variable for every category (e.g., summer, autumn, winter, and spring) and including a constant term in the regression together guarantee perfect multicollinearity.
+# Try seeing what happens if you use independent subsets of your data for estimation and apply those estimates to the whole data set.  Theoretically you should obtain somewhat higher variance from the smaller datasets used for estimation, but the expectation of the coefficient values should be the same.  Naturally, the observed coefficient values will vary, but look at how much they vary.
+# Leave the model as is, despite multicollinearity. The presence of multicollinearity doesn't affect the efficiency of extrapolating the fitted model to new data provided that the predictor variables follow the same pattern of multicollinearity in the new data as in the data on which the regression model is based.<ref>{{cite book| last = Gujarati| first = Damodar| authorlink = Damodar N. Gujarati| title = Basic Econometrics| edition = 4th| publisher = McGraw−Hill| pages = 363–363| chapter = Multicollinearity: what happens if the regressors are correlated?}}</ref>
+# Drop one of the variables. An explanatory variable may be dropped to produce a model with significant coefficients. However, you lose information (because you've dropped a variable). Omission of a relevant variable results in biased coefficient estimates for the remaining explanatory variables that are correlated with the dropped variable.
+# Obtain more data, if possible. This is the preferred solution. More data can produce more precise parameter estimates (with lower standard errors), as seen from the formula in [[variance inflation factor]] for the variance of the estimate of a regression coefficient in terms of the sample size and the degree of multicollinearity.
+# Mean-center the predictor variables. Generating polynomial terms (i.e., for <math>x_1</math>, <math>x_1^2</math>, <math>x_1^3</math>, etc.) or interaction terms (i.e., <math>x_1 \times x_2</math>, etc.) can cause some multicollinearity if the variable in question has a limited range (e.g., [2,4]).  Mean-centering will eliminate this special kind of multicollinearity.  However, in general, this has no effect. It can be useful in overcoming problems arising from rounding and other computational steps if a carefully designed computer program is not used.
+# Standardize your independent variables.  This may help reduce a false flagging of a condition index above 30.
+# It has also been suggested that using the [[Shapley value]], a game theory tool, the model could account for the effects of multicollinearity.  The Shapley value assigns a value for each predictor and assesses all possible combinations of importance.<ref>{{cite journal |last=Lipovestky |first= |last2=Conklin |first2= |year=2001 |title=Analysis of Regression in Game Theory Approach |journal=Applied Stochastic Models and Data Analysis |volume=17 |issue=4 |pages=319–330 |doi=10.1002/asmb.446 }}</ref>
+# [[Ridge regression]] or [[principal component regression]] or [[partial least squares regression]] can be used.
+# If the correlated explanators are different lagged values of the same underlying explanator, then a [[distributed lag]] technique can be used, imposing a general structure on the relative values of the coefficients to be estimated.
+
+Note that one technique that does not work in offsetting the effects of multicollinearity is [[orthogonality|orthogonalizing]] the explanatory variables (linearly transforming them so that the transformed variables are uncorrelated with each other): By the [[Frisch–Waugh–Lovell theorem]], using projection matrices to make the explanatory variables orthogonal to each other will lead to the same results as running the regression with all non-orthogonal explanators included.
+
+==Examples of contexts in which multicollinearity arises==
+
+===Survival analysis===
+
+Multicollinearity may represent a serious issue in [[survival analysis]]. The problem is that time-varying covariates may change their value over the time line of the study. A special procedure is recommended to assess the impact of multicollinearity on the results.<ref>For a detailed discussion, see {{Cite journal | doi = 10.1016/S0377-2217(03)00069-9| title = Customer attrition analysis for financial services using proportional hazard models| year = 2004| last1 = Van Den Poel | first1 = D. | last2 = Larivière | first2 = B. | journal = European Journal of Operational Research| volume = 157| pages = 196}}</ref>
+
+===Interest rates for different terms to maturity===
+
+In various situations it might be hypothesized that multiple interest rates of various terms to maturity all influence some economic decision, such as the amount of money or some other financial asset to hold, or the amount of fixed investment spending to engage in.  In this case, including these various interest rates will in general create a substantial multicollinearity problem because interest rates tend to move together.  If in fact each of the interest rates has its own separate effect on the dependent variable, it can be extremely difficult to separate out their effects.
+
+==Extension==
+
+The concept of ''lateral collinearity'' expands on the traditional view of multicollinearity, comprising also collinearity between explanatory and criteria (i.e., explained) variables, in the sense that they may be measuring almost the same thing as each other.<ref>{{cite journal |last=Kock |first=N. |last2=Lynn |first2=G. S. |year=2012 |title=Lateral collinearity and misleading results in variance-based SEM: An illustration and recommendations |journal=[[Journal of the Association for Information Systems]] |volume=13 |issue=7 |pages=546–580 |url=http://www.scriptwarp.com/warppls/pubs/Kock_Lynn_2012.pdf }}</ref>
+
+==See also==
+*[[Linear independence]]
+*[[Ill-conditioned matrix]]
+
+==References==
+{{Reflist|30em}}
+
+==Further reading==
+* {{cite book |last=Belsley |first=David A. |last2=Kuh |first2=Edwin |authorlink2=Edwin Kuh |last3=Welsch |first3=Roy E. |title=Regression Diagnostics: Identifying Influential Data and Sources of Collinearity |location=New York |publisher=Wiley |year=1980 |isbn=0-471-05856-4 }}
+* {{cite book |last=Goldberger |first=Arthur S. |authorlink=Arthur Goldberger |chapter=Multicollinearity |title=A Course in Econometrics |location=Cambridge |publisher=Harvard University Press |year=1991 |pages=245–53 |chapterurl=https://books.google.com/books?id=mHmxNGKRlQsC&pg=PA245 }}
+* {{cite book |last=Hill |first=R. Carter |last2=Adkins |first2=Lee C. |chapter=Collinearity |title=A Companion to Theoretical Econometrics |editor-first=Badi H. |editor-last=Baltagi |location= |publisher=Blackwell |year=2001 |isbn=0-631-21254-X |pages=256–278 |doi=10.1002/9780470996249.ch13 }}
+* {{cite book |last=Johnston |first=John |authorlink=John Johnston (econometrician) |title=Econometric Methods |location=New York |publisher=McGraw-Hill |year=1972 |edition=Second |pages=159–168 }}
+* {{cite book |last=Kmenta |first=Jan |authorlink=Jan Kmenta |title=Elements of Econometrics |location=New York |publisher=Macmillan |year=1986 |edition=Second |isbn=0-02-365070-2 |pages=430–442 }}
+* {{cite book |last=Maddala |first=G. S. |authorlink=G. S. Maddala |last2=Lahiri |first2=Kajal |title=Introduction to Econometrics |location=Chichester |publisher=Wiley |edition=Fourth |year=2009 |isbn=978-0-470-01512-4 |pages=279–312 }}
+
+==External links==
+* {{cite web |first=Mark |last=Thoma |authorlink=Mark Thoma |date=March 2, 2011 |title=Econometrics Lecture (topic: multicollinearity) |work= |publisher=[[University of Oregon]] |via=[[YouTube]] |url=https://www.youtube.com/watch?v=K8eFiMIb8qo&list=PLD15D38DC7AA3B737&index=16#t=25m09s }}
+* [http://jeff560.tripod.com/m.html Earliest Uses: The entry on Multicollinearity has some historical information.]
+
+{{Use dmy dates|date=November 2010}}
+
+[[Category:Regression analysis]]
+[[Category:Design of experiments]]
