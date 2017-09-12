@@ -1,0 +1,325 @@
+{{Infobox software
+| name                   = LLVM
+| logo                   = [[File:LLVM Logo.svg|LLVM Logo|225px]]
+| author = [[Vikram Adve]], [[Chris Lattner]]
+| developer              = LLVM Developer Group
+| released               = {{start date and age|2003|df=yes}}
+| latest release version = 5.0.0
+| latest release date    = {{start date and age|2017|09|07|df=yes}}<ref>{{cite mailing list |url=https://lists.llvm.org/pipermail/llvm-announce/2017-September/000075.html|title=LLVM 5.0.0 Release|first=Hans|last=Wennborg|mailinglist=llvm-announce|date=7 September 2017|accessdate=10 September 2017}}</ref>
+| programming language   = [[C++]]
+| operating system       = [[Cross-platform]]
+| genre                  = [[Compiler]]
+| license                = [[University of Illinois/NCSA Open Source License]]<ref name="License">{{citation |url=http://llvm.org/docs/FAQ.html#license |title=License |work=LLVM: Frequently Asked Questions |publisher=llvm.org |accessdate=27 January 2012}}</ref>
+| website                = {{URL|llvm.org}}
+}}
+
+The '''LLVM''' compiler infrastructure project (formerly '''Low Level Virtual Machine''') is a "collection of modular and reusable [[compiler]] and [[toolchain]] technologies"<ref>{{Cite web| title = The LLVM Compiler Infrastructure Project| accessdate = 2016-03-11| url = http://llvm.org/}}</ref> used to develop compiler [[Compiler#Front end|front ends]] and [[Compiler#Back end|back ends]].
+
+LLVM is written in [[C++]] and is designed for [[compile-time]], [[link-time]], [[run time (program lifecycle phase)|run-time]], and "idle-time" optimization of programs written in arbitrary [[programming language]]s. Originally implemented for [[C (programming language)|C]] and C++, the [[Language-independent specification|language-agnostic]] design of LLVM has since spawned a wide variety of [[Compiler#Front end|front ends]]: languages with compilers that use LLVM include [[ActionScript]], [[Ada (programming language)|Ada]], [[C Sharp (programming language)|C#]],<ref>{{citation |title= Announcing LLILC - A new LLVM-based Compiler for .NET |accessdate= 17 April 2015 |url= http://www.dotnetfoundation.org/blog/announcing-llilc-llvm-for-dotnet}}</ref><ref>{{citation |title= Mono LLVM |accessdate= 10 March 2013 |url= http://www.mono-project.com/Mono_LLVM}}</ref><ref>[http://www.aosabook.org/en/llvm.html LLVM], Chris Lattner, in [http://www.aosabook.org/ The architecture of Open Source Applications], edited by Amy Brown, Greg Wilson, 2011</ref> [[Common Lisp]], [[Crystal (programming language)|Crystal]], [[D (programming language)|D]], [[Delphi (programming language)|Delphi]], [[Fortran]], [[OpenGL Shading Language]], [[Halide (programming language)|Halide]], [[Haskell (programming language)|Haskell]], [[Java bytecode]], [[Julia (programming language)|Julia]], [[Lua (programming language)|Lua]], [[Objective-C]], Pony,<ref>{{Cite web|url=http://llvm.org/ProjectsWithLLVM/#pony|title=The LLVM Compiler Infrastructure Project|website=llvm.org|access-date=2016-05-25}}</ref> [[Python (programming language)|Python]], [[R (programming language)|R]], [[Ruby (programming language)|Ruby]],<ref>{{cite web|title=Features|url=http://www.rubymotion.com/tour/features/|website=RubyMotion|publisher=Scratchwork Development LLC|accessdate=17 June 2017|quote=[[RubyMotion]] transforms the Ruby source code of your project into ... machine code using a[n] ... ahead-of-time (AOT) compiler, based on LLVM.}}</ref> [[Rust (programming language)|Rust]], [[CUDA]], [[Scala (programming language)|Scala]],<ref>{{Cite journal |last= Reedy |first= Geoff |title= Compiling Scala to LLVM |location= St. Louis, Missouri, United States |accessdate= 19 February 2013 |date= 24 September 2012 |url= http://www.infoq.com/presentations/Scala-LLVM}}</ref> [[Swift (programming language)|Swift]], and [[Xojo]].
+
+The LLVM project started in 2000 at the [[University of Illinois at Urbana–Champaign]], under the direction of [[Vikram Adve]] and [[Chris Lattner]]. LLVM was originally developed as a research infrastructure to investigate [[dynamic compilation]] techniques for static and [[dynamic programming language|dynamic]] [[programming language]]s. LLVM was released under the [[University of Illinois/NCSA Open Source License]],<ref name="License"/> a [[permissive free software licence]]. In 2005, [[Apple Inc.]] hired Lattner and formed a team to work on the LLVM system for various uses within Apple's development systems.<ref name="Adam Treat">{{citation|url=http://lists.trolltech.com/qt4-preview-feedback/2005-02/msg00691.html |title=mkspecs and patches for LLVM compile of Qt4 |author=Adam Treat |date=19 February 2005 |accessdate=27 January 2012 |deadurl=yes |archiveurl=https://web.archive.org/web/20111004073001/http://lists.trolltech.com/qt4-preview-feedback/2005-02/msg00691.html |archivedate= 4 October 2011 |df= }}</ref> LLVM is an integral part of Apple's latest development tools for [[macOS]] and [[iOS]].<ref name="Apple LLVM Compiler">{{citation |url=https://developer.apple.com/technologies/tools/ |title=Apple LLVM Compiler |work=Developer Tools |publisher=Apple |accessdate=27 January 2012}}</ref> Since 2013, Sony has been using LLVM's primary [[Compiler#Front end|front end]] [[Clang]] compiler in the [[software development kit]] (SDK) of its [[PS4]] console.<ref>{{citation |url=http://llvm.org/devmtg/2013-11/slides/Robinson-PS4Toolchain.pdf |title=Developer Toolchain for ps4 |accessdate=24 February 2015}}</ref>
+
+The name ''LLVM'' was originally an [[initialism]] for ''Low Level Virtual Machine'', but this became increasingly less apt as LLVM became an "umbrella project" that included a variety of other compiler and low-level tool technologies, so the project abandoned the initialism.<ref>{{cite mailing list |title=The name of LLVM |url=http://lists.llvm.org/pipermail/llvm-dev/2011-December/046445.html |first=Chris |last=Lattner |mailinglist=llvm-dev |date=21 December 2011 |accessdate=2 March 2016}}</ref>  Now, LLVM is a brand that applies to the LLVM umbrella project, the LLVM [[intermediate representation]] (IR), the LLVM [[debugger]], the LLVM [[C++ Standard Library]] (with full support of [[C++11]] and [[C++14]]<ref>{{cite web|url=http://libcxx.llvm.org/|title="libc++" C++ Standard Library}}</ref>), etc. LLVM is administered by the LLVM Foundation. Its president is compiler engineer Tanya Lattner.<ref>{{cite web |url=http://blog.llvm.org/2014/04/the-llvm-foundation.html |title=The LLVM Foundation |work=LLVM Project Blog |date=3 April 2014 |author=Chris Lattner}}</ref>
+
+The [[Association for Computing Machinery]] presented Adve, Lattner, and Evan Cheng with the 2012 [[ACM Software System Award]] for LLVM.<ref>{{cite web |url=http://awards.acm.org/homepage.cfm?srt=all&awd=149 |title=ACM Awards |publisher=ACM}}</ref>
+
+== Features ==
+
+LLVM can provide the middle layers of a complete compiler system, taking [[intermediate representation]] (IR) code from a [[compiler]] and emitting an optimized IR. This new IR can then be converted and linked into machine-dependent [[assembly language]] code for a target platform. LLVM can accept the IR from the [[GNU Compiler Collection]] (GCC) [[toolchain]], allowing it to be used with a wide array of extant compilers written for that project.
+
+LLVM can also generate [[Relocation (computing)|relocatable machine code]] at compile-time or link-time or even binary machine code at run-time.
+
+LLVM supports a language-independent [[instruction set]] and [[type system]].<ref>{{cite web
+ | url=http://llvm.org/docs/LangRef.html
+ | title=LLVM Language Reference Manual
+ | accessdate=16 April 2012
+}}</ref> Each instruction is in [[static single assignment form]] (SSA), meaning that each [[variable (programming)|variable]] (called a typed register) is assigned once and then frozen. This helps simplify the analysis of dependencies among variables. LLVM allows code to be compiled statically, as it is under the traditional GCC system, or left for late-compiling from the IR to machine code via [[just-in-time compilation]] (JIT), similar to [[Java (programming language)|Java]]. The type system consists of basic types such as [[integer (computer science)|integer]] or [[floating point]] numbers and five [[Composite data type|derived types]]: [[pointer (computer programming)|pointers]], [[array data structure|arrays]], [[array data type|vectors]], [[record (computer science)|structures]], and [[function (programming)|functions]]. A type construct in a concrete language can be represented by combining these basic types in LLVM. For example, a class in C++ can be represented by a mix of structures, functions and arrays of [[function pointer]]s.
+
+The LLVM JIT compiler can optimize unneeded static branches out of a program at runtime, and thus is useful for [[partial evaluation]] in cases where a program has many options, most of which can easily be determined unneeded in a specific environment. This feature is used in the [[OpenGL]] pipeline of [[Mac OS X Leopard]] (v10.5) to provide support for missing hardware features.<ref>
+{{cite mailing list
+ | url=http://lists.llvm.org/pipermail/llvm-dev/2006-August/006497.html
+ | title=A cool use of LLVM at Apple: the OpenGL stack
+ | author=Chris Lattner
+ | date=15 August 2006
+ | mailinglist=llvm-dev
+ | accessdate=1 March 2016
+}}</ref>
+
+Graphics code within the OpenGL stack can be left in intermediate representation, and then compiled when run on the target machine. On systems with high-end [[graphics processing unit]]s (GPUs), the resulting code remains quite thin, passing the instructions on to the GPU with minimal changes. On systems with low-end GPUs, LLVM will compile optional procedures that run on the local [[central processing unit]] (CPU) that emulate instructions that the GPU cannot run internally. LLVM improved performance on low-end machines using [[Intel GMA]] chipsets. A similar system was developed under the [[Gallium3D]] LLVMpipe, and incorporated into the [[GNOME]] shell to allow it to run without a proper 3D hardware driver loaded.<ref>Michael Larabel, [https://www.phoronix.com/scan.php?page=news_item&px=MTAxMjI "GNOME Shell Works Without GPU Driver Support"], ''phoronix'', 6 November 2011</ref>
+
+For run-time performance of the compiled programs, GCC formerly outperformed LLVM by 10% on average.<ref>{{cite web
+ | url=http://vmakarov.fedorapeople.org/spec/2011/llvmgcc32.html
+ | author=V. Makarov
+ | title=SPEC2000: Comparison of LLVM-2.9 and GCC4.6.1 on x86
+ | accessdate=3 October 2011
+}}</ref><ref>{{cite web
+ | url=http://vmakarov.fedorapeople.org/spec/2011/llvmgcc64.html
+ | author=V. Makarov
+ | title=SPEC2000: Comparison of LLVM-2.9 and GCC4.6.1 on x86_64
+ | accessdate=3 October 2011
+}}</ref> Newer results indicate that LLVM has now caught up with GCC in this area, and is now compiling binaries of approximately equal performance.<ref>{{cite web
+ | url=https://www.phoronix.com/scan.php?page=article&item=llvm_clang32_final
+ | author=Michael Larabel
+ | title=LLVM/Clang 3.2 Compiler Competing With GCC
+ | date = 27 December 2012
+ | accessdate=31 March 2013
+}}</ref>
+
+== Components ==
+LLVM has become an umbrella project containing multiple components.
+
+=== Front ends ===
+
+LLVM was originally written to be a replacement for the existing [[Code generation (compiler)|code generator]] in the GCC stack,<ref>
+{{cite conference
+ | first=Chris
+ | last=Lattner
+ | authorlink=Chris Lattner
+ | author2=Vikram Adve
+ | title=Architecture For a Next-Generation GCC
+ | url=http://llvm.org/pubs/2003-05-01-GCCSummit2003.html
+ | conference=First Annual GCC Developers' Summit
+ | date=May 2003
+ | accessdate=6 September 2009
+}}</ref>
+and many of the GCC front ends have been modified to work with it. LLVM currently supports compiling of [[Ada (programming language)|Ada]], [[C (programming language)|C]], [[C++]], [[D (programming language)|D]], [[Delphi (programming language)|Delphi]], [[Fortran]], [[Haskell (programming language)|Haskell]], [[Objective-C]] and [[Swift (programming language)|Swift]] using various [[Semantic analysis (compilers)|front ends]], some derived from version 4.0.1 and 4.2 of the [[GNU Compiler Collection]] (GCC).
+
+Widespread interest in LLVM has led to several efforts to develop new front ends for a variety of languages. The one that has received the most attention is [[Clang]], a new compiler supporting C, C++, and Objective-C. Primarily supported by Apple, Clang is aimed at replacing the C/Objective-C compiler in the GCC system with a system that is more easily integrated with [[integrated development environment]]s (IDEs) and has wider support for [[thread (computer science)|multithreading]]. Support for [[OpenMP]] directives has been included in [[Clang]] since release 3.8.<ref>{{cite web
+ | url=http://llvm.org/releases/3.8.0/tools/clang/docs/ReleaseNotes.html#openmp-support-in-clan
+ | title=Clang 3.8 Release Notes
+ | accessdate=24 August 2016
+}}</ref>
+
+The Utrecht [[Haskell (programming language)|Haskell]] compiler can generate code for LLVM. Though the generator is in the early stages of development, in many cases it has been more efficient than the C code generator.<ref>
+{{cite web
+ | url=http://www.cs.uu.nl/wiki/bin/view/Stc/CompilingHaskellToLLVM
+ | title=Compiling Haskell To LLVM
+ | accessdate=22 February 2009
+}}</ref> The [[Glasgow Haskell Compiler]] (GHC) has a working LLVM backend that achieves a 30% speed-up of the compiled code relative to native code compiling via GHC or C code generation followed by compiling, missing only one of the many optimizing techniques implemented by the GHC.<ref>
+{{cite web
+ | url=http://blog.llvm.org/2010/05/glasgow-haskell-compiler-and-llvm.html
+ | title=LLVM Project Blog: The Glasgow Haskell Compiler and LLVM
+ | accessdate=13 August 2010
+}}</ref>
+
+Many other components are in various stages of development, including, but not limited to, the [[Rust (programming language)|Rust]] compiler, a [[Java bytecode]] front end, a [[Common Intermediate Language]] (CIL) front end, the [[MacRuby]] implementation of Ruby 1.9, various front ends for [[Standard ML]], and a new [[graph coloring]] register allocator.{{citation needed|date=June 2012}}
+
+=== Intermediate representation ===
+[[File:Mesa layers of crap 2016.svg|thumb|LLVM IR is used e.g., by radeonsi and by llvmpipe. Both are part of [[Mesa 3D]].]]
+
+The core of LLVM is the [[intermediate representation]] (IR), a low-level programming language similar to assembly. IR is a strongly typed [[reduced instruction set computing]] (RISC) instruction set which abstracts away details of the target. For example, the calling convention is abstracted through ''call'' and ''ret'' instructions with explicit arguments. Also, instead of a fixed set of registers, IR uses an infinite set of temporaries of the form %0, %1, etc. LLVM supports three isomorphic (i.e., functionally equivalent) forms of IR: a human-readable assembly format, a C++ object format suitable for frontends, and a dense bitcode format for serializing. A simple [["Hello, world!" program]] in the assembly format:
+<source lang="llvm">
+@.str = internal constant [14 x i8] c"hello, world\0A\00"
+
+declare i32 @printf(i8*, ...)
+
+define i32 @main(i32 %argc, i8** %argv) nounwind {
+entry:
+    %tmp1 = getelementptr [14 x i8], [14 x i8]* @.str, i32 0, i32 0
+    %tmp2 = call i32 (i8*, ...) @printf( i8* %tmp1 ) nounwind
+    ret i32 0
+}
+</source>
+<ref>For the full documentation, refer to {{URL|http://llvm.org/docs/LangRef.html}}.</ref>
+
+=== Back ends ===
+At version 3.4, LLVM supports many [[instruction set]]s, including [[ARM architecture|ARM]], [[Qualcomm Hexagon]], [[MIPS architecture|MIPS]], [[Nvidia]] [[Parallel Thread Execution]] (PTX; called ''NVPTX'' in LLVM documentation), [[PowerPC]],  [[TeraScale (microarchitecture)|AMD TeraScale]],<ref>{{cite mailing list |url=http://lists.llvm.org/pipermail/llvm-dev/2012-March/048409.html |title=[LLVMdev] RFC: R600, a new backend for AMD GPUs |mailinglist=llvm-dev |first=Tom |last=Stellard |date=26 March 2012}}</ref> AMD [[Graphics Core Next]] (GCN), [[SPARC]], [[z/Architecture]] (called ''SystemZ'' in LLVM documentation), [[x86]]/[[x86-64]], and [[XCore]]. Some features are not available on some platforms. Most features are present for x86/x86-64, z/Architecture, ARM, and PowerPC.<ref>[http://llvm.org/docs/CodeGenerator.html#target-feature-matrix Target-specific Implementation Notes: Target Feature Matrix] // The LLVM Target-Independent Code Generator, LLVM site.</ref>
+
+The LLVM machine code (MC) subproject is LLVM's framework for translating machine instructions between textual forms and machine code. Formerly, LLVM relied on the system assembler, or one provided by a toolchain, to translate assembly into machine code. LLVM MC's integrated assembler supports most LLVM targets, including x86, x86-64, ARM, and ARM64. For some targets, including the various MIPS instruction sets, integrated assembly support is usable but still in the beta stage.
+
+=== Linker ===
+
+The lld subproject is an attempt to develop a built-in, platform-independent [[linker (computing)|linker]] for LLVM.<ref name="lld-home-page">{{cite web|title=lld - The LLVM Linker|url=http://lld.llvm.org/|publisher=The LLVM Project|accessdate=10 May 2017}}</ref> lld aims to remove dependence on a third-party linker. {{As of|2017|05}}, lld supports [[Executable and Linkable Format|ELF]], [[PE/COFF]], and [[Mach-O]] in descending order of completeness.<ref name="lld-home-page"/> In cases where lld is insufficient, another linker such as [[GNU ld]] can be used.
+
+Using lld allows [[link-time optimization]]. When link-time optimization is enabled, the compiler generates LLVM bitcode instead of native code, and native code generation is done by the linker.
+
+=== C++ Standard Library ===
+
+The LLVM project includes an implementation of the [[C++ Standard Library]], dual-licensed under the [[MIT License]] and the UIUC license.<ref>{{cite web|url=http://libcxx.llvm.org|title="libc++" C++ Standard Library}}</ref>
+
+=== Debugger ===
+{{Main article|LLDB (debugger)}}
+
+== History ==
+
+The LLVM project started in 2000 at the [[University of Illinois at Urbana–Champaign]], under the direction of [[Vikram Adve]] and [[Chris Lattner]]. LLVM was originally developed as a research infrastructure to investigate [[dynamic compilation]] techniques for static and [[dynamic programming language|dynamic]] [[programming language]]s. LLVM was released under the [[University of Illinois/NCSA Open Source License]],<ref name="License"/> a [[permissive free software licence]]. In 2005, [[Apple Inc.]] hired Lattner and formed a team to work on the LLVM system for various uses within Apple's development systems.<ref name="Adam Treat"/> LLVM is an integral part of Apple's latest development tools for [[macOS]] and [[iOS]].<ref name="Apple LLVM Compiler"/> Since 2013, Sony has been using LLVM's primary [[Compiler#Front end|front end]] [[Clang]] compiler in the [[software development kit]] (SDK) of its [[PS4]] console.<ref>{{citation |url=http://llvm.org/devmtg/2013-11/slides/Robinson-PS4Toolchain.pdf |title=Developer Toolchain for ps4 |accessdate=24 February 2015}}</ref>
+
+{| class="wikitable collapsible collapsed"
+|+ Revision history<ref>http://llvm.org/releases/</ref>
+!Version
+!Release date
+|-
+|5.0.0
+|7 September 2017
+|-
+|4.0.1
+|4 July 2017
+|-
+|4.0
+|13 March 2017
+|-
+|3.9.1
+|23 December 2016
+|-
+|3.9.0
+|2 September 2016
+|-
+|3.8.1
+|11 July 2016
+|-
+|3.8.0
+|8 March 2016
+|-
+|3.7.1
+|5 January 2016
+|-
+|3.7.0
+|1 September 2015
+|-
+|3.6.2
+|16 Jul 2015
+|-
+|3.6.1
+|26 May 2015
+|-
+|3.6.0
+|27 February 2015
+|-
+|3.5.2
+|2 April 2015
+|-
+|3.5.1
+|20 January 2015
+|-
+|3.5.0
+|3 September 2014
+|-
+|3.4.2
+|19 June 2014
+|-
+|3.4.1
+|7 May 2014
+|-
+|3.4.0
+|2 January 2014
+|-
+|3.3
+|17 June 2013
+|-
+|3.2
+|20 December 2012
+|-
+|3.1
+|22 May 2012
+|-
+|3.0
+|1 December 2011
+|-
+|2.9
+|6 April 2011
+|-
+|2.8
+|5 October 2010
+|-
+|2.7
+|27 April 2010
+|-
+|2.6
+|23 October 2009
+|-
+|2.5
+|2 March 2009
+|-
+|2.4
+|9 November 2008
+|-
+|2.3
+|9 June 2008
+|-
+|2.2
+|11 February 2008
+|-
+|2.1
+|26 September 2007
+|-
+|2.0
+|23 May 2007
+|-
+|1.9
+|19 November 2006
+|-
+|1.8
+|9 August 2006
+|-
+|1.7
+|20 April 2006
+|-
+|1.6
+|8 November 2005
+|-
+|1.5
+|18 May 2005
+|-
+|1.4
+|9 December 2004
+|-
+|1.3
+|13 August 2004
+|-
+|1.2
+|19 March 2004
+|-
+|1.1
+|17 December 2003
+|-
+|1.0
+|24 October 2003
+|}
+
+==See also==
+{{Portal|Free software}}
+* [[AMD Optimizing C/C++ Compiler]]
+* [[C--]]
+* [[Amsterdam Compiler Kit]] (ACK)
+* [[LLDB (debugger)]]
+* [[GNU lightning]]
+* [[GNU Compiler Collection]] (GCC)
+* [[Pure (programming language)|Pure]]
+* [[OpenCL]]
+* [[Emscripten]]
+* [[TenDRA Distribution Format]]
+* [[Architecture Neutral Distribution Format]] (ANDF)
+* [[Comparison of application virtual machines]]
+* [[SPIR-V]]
+* [[University of Illinois at Urbana Champaign#Discoveries and innovation|University of Illinois at Urbana Champaign discoveries & innovations]]
+
+== Literature ==
+* [[Chris Lattner]] - ''[http://www.aosabook.org/en/llvm.html The Architecture of Open Source Applications - Chapter 11 LLVM]'', {{ISBN|978-1257638017}}, released 2012 under [[CC BY]] 3.0 ([[Open Access]]).<ref name="aosa">{{cite book
+|title=The Architecture of Open Source Applications
+|publisher=Amy Brown, Greg Wilson 
+|chapter=Chapter 11
+|author=[[Chris Lattner]]
+|date=March 15, 2012
+|ISBN=978-1257638017
+|url=http://www.aosabook.org/en/llvm.html
+}}</ref>
+* [http://llvm.org/pubs/2004-01-30-CGO-LLVM.pdf LLVM: A Compilation Framework for Lifelong Program Analysis & Transformation], a published paper by [[Chris Lattner]], Vikram Adve
+
+==References==
+{{Reflist|30em}}
+
+==External links==
+* {{Official website}}
+* [http://llvm.org/docs/LangRef.html LLVM Language Reference Manual], describes the LLVM intermediate representation
+* {{youtube|VeRaLPupGks|LLVM - 2.0 and beyond!}}
+* [https://arstechnica.com/apple/reviews/2009/08/mac-os-x-10-6.ars/9 Discussion of LLVM] by John Siracusa at [[Ars Technica]]
+* [http://www.drdobbs.com/architecture-and-design/the-design-of-llvm/240001128?pgno=1 The Design of LLVM] by Chris Lattner, ''[[Dr. Dobb's Journal]]'', May 2012
+
+{{FLOSS}}
+
+{{Use dmy dates|date=March 2016}}
+
+[[Category:Compilers]]
+[[Category:Free compilers and interpreters]]
+[[Category:Register-based virtual machines]]
+[[Category:Software using the NCSA license]]
